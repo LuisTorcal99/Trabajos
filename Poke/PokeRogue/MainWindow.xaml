@@ -1,0 +1,51 @@
+﻿<Window x:Class="PokeRogue.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:PokeRogue" 
+        xmlns:viewmodel="clr-namespace:PokeRogue.ViewModel" 
+        xmlns:view="clr-namespace:PokeRogue.View" 
+        d:DataContext="{d:DesignInstance Type=viewmodel:MainViewModel}"
+        mc:Ignorable="d"
+        Title="MainWindow" Height="600" Width="900"
+        Background="HotPink">
+    <Window.Resources>
+        <DataTemplate DataType="{x:Type viewmodel:BattleViewModel}">
+            <view:BattleView/>
+        </DataTemplate>
+        <DataTemplate DataType="{x:Type viewmodel:TeamViewModel}">
+            <view:TeamView/>
+        </DataTemplate>
+        <DataTemplate DataType="{x:Type viewmodel:HistoricoViewModel}">
+            <view:HistoricoView/>
+        </DataTemplate>
+        <DataTemplate DataType="{x:Type viewmodel:ImportViewModel}">
+            <view:ImportView/>
+        </DataTemplate>
+    </Window.Resources>
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="*" />
+        </Grid.RowDefinitions>
+
+        <Menu FontSize="20" Grid.Row="0" HorizontalAlignment="Center" Margin="0,15,0,15">
+            <MenuItem Header="_Battle"
+                      Command="{Binding SelectViewModelCommand}"
+                      CommandParameter="{Binding BattleViewModel}"/>
+            <MenuItem Header="_Team"
+                        Command="{Binding SelectViewModelCommand}"
+                        CommandParameter="{Binding TeamViewModel}"/>
+            <MenuItem Header="_Historic"
+                        Command="{Binding SelectViewModelCommand}"
+                        CommandParameter="{Binding HistoricoViewModel}"/>
+            <MenuItem Header="_Import"
+                        Command="{Binding SelectViewModelCommand}"
+                        CommandParameter="{Binding ImportViewModel}"/>
+        </Menu>
+
+        <ContentControl Grid.Row="1" Content="{Binding SelectedViewModel}"/>
+
+    </Grid>
+</Window>

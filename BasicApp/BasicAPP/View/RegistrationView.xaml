@@ -1,0 +1,89 @@
+﻿<UserControl x:Class="BasicAPP.View.RegistrationView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:BasicAPP.View"
+             xmlns:viewmodel="clr-namespace:BasicAPP.ViewModel" 
+             xmlns:ui="http://schemas.lepo.co/wpfui/2022/xaml"
+             d:DataContext="{d:DesignInstance Type=viewmodel:RegistrationViewModel}"
+             mc:Ignorable="d" 
+             d:DesignHeight="450" d:DesignWidth="800"
+             Background="MediumBlue">
+    <Grid>
+        <Border CornerRadius="10" Background="White" Width="300" Height="400" HorizontalAlignment="Center" VerticalAlignment="Center" Padding="20">
+            <Grid>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto"/>
+                    <!-- Avatar -->
+                    <RowDefinition Height="Auto"/>
+                    <!-- Nombre -->
+                    <RowDefinition Height="Auto"/>
+                    <!-- Email -->
+                    <RowDefinition Height="Auto"/>
+                    <!-- Contraseña -->
+                    <RowDefinition Height="Auto"/>
+                    <!-- Confirmar Contraseña -->
+                    <RowDefinition Height="*"/>
+                    <!-- Terminos y condiciones -->
+                    <RowDefinition Height="Auto"/>
+                    <!-- Botones -->
+                </Grid.RowDefinitions>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="Auto"/>
+                    <ColumnDefinition Width="*"/>
+                </Grid.ColumnDefinitions>
+
+                <!-- Titulo -->
+                <TextBlock Text="Registration" FontWeight="Bold" FontSize="24" Foreground="#333" Margin="0,0,0,20" HorizontalAlignment="Center" Grid.ColumnSpan="2" />
+
+                <!-- Campo de Nombre -->
+                <Image Height="30" Width="30" VerticalAlignment="Center" Grid.Row="1" Grid.Column="0" Margin="0,0,10,0" Source="/Resources/usuario.png" />
+                <StackPanel Grid.Row="1" Grid.Column="1" Orientation="Vertical">
+                    <TextBox Height="40" Text="{Binding Nombre}" Background="White" BorderThickness="0"/>
+                    <Rectangle Height="1" Fill="Gray" HorizontalAlignment="Stretch" />
+                </StackPanel>
+
+                <!-- Campo de Correo -->
+                <Image Height="30" Width="30" VerticalAlignment="Center" Grid.Row="2" Grid.Column="0" Margin="0,0,10,0" Source="/Resources/correo-electronico.png" />
+                <StackPanel Grid.Row="2" Grid.Column="1" Orientation="Vertical">
+                    <TextBox Height="40" Text="{Binding Correo}" Background="White" BorderThickness="0" />
+                    <Rectangle Height="1" Fill="Gray" HorizontalAlignment="Stretch" />
+                </StackPanel>
+
+                <!-- Campo de Contraseña -->
+                <Image Height="30" Width="30" Source="/Resources/cerrar-con-llave.png" VerticalAlignment="Center" Grid.Row="3" Grid.Column="0" Margin="0,0,10,0" />
+                <StackPanel Grid.Row="3" Grid.Column="1" Orientation="Vertical">
+                    <TextBox Height="40" Background="White" BorderThickness="0" Text="{Binding Password}"/>
+                    <Rectangle Height="1" Fill="Gray" HorizontalAlignment="Stretch" />
+                </StackPanel>
+
+                <!-- Campo de Confirmar Contraseña -->
+                <Image Height="30" Width="30" Source="/Resources/cerrar-con-llave.png" VerticalAlignment="Center" Grid.Row="4" Grid.Column="0" Margin="0,0,10,0" />
+                <StackPanel Grid.Row="4" Grid.Column="1" Orientation="Vertical">
+                    <TextBox Height="40" Background="White" BorderThickness="0" Text="{Binding PasswordEquals}"/>
+                    <Rectangle Height="1" Fill="Gray" HorizontalAlignment="Stretch" />
+                </StackPanel>
+
+                <!-- Términos y condiciones -->
+                <CheckBox Content="I accept all terms and conditions" VerticalAlignment="Top" Foreground="Black" Grid.Row="5" Grid.ColumnSpan="2" Margin="0,10,0,0"
+                          IsChecked="{Binding Terminos}"/>
+
+                <!-- Botón de Registro -->
+                <Button Content="Register Now" Width="200" Height="40" HorizontalAlignment="Left" Background="#4263EB" Foreground="White"
+                        Command="{Binding RegisterNowCommand}" Grid.Row="5" Grid.ColumnSpan="2" VerticalAlignment="Top" Margin="30,50,0,0" Grid.RowSpan="2"/>
+
+                <!-- Botón de Volver a Login -->
+                <MenuItem Header="Already have an account? Login here" Width="280" Height="30" HorizontalAlignment="Left"
+                        Background="White" Foreground="#4263EB" BorderBrush="Transparent" Command="{Binding NavigateToLoginCommand}"
+                        Grid.Row="5" Grid.ColumnSpan="2" VerticalAlignment="Bottom" Grid.RowSpan="2" />
+
+                <Label Content="{Binding Error}" HorizontalAlignment="Center" Margin="0,90,0,0" Grid.Row="5" VerticalAlignment="Top" Grid.ColumnSpan="2" 
+                       Foreground="Red" />
+            </Grid>
+        </Border>
+        
+        <ui:ThumbRate HorizontalAlignment="Left" Margin="0,0,0,0" VerticalAlignment="Top" Background="Gold" Foreground="Gold"/>
+
+    </Grid>
+</UserControl>

@@ -1,0 +1,34 @@
+﻿<UserControl x:Class="PokeRogue.View.TeamView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:PokeRogue.View" 
+             xmlns:viewmodel="clr-namespace:PokeRogue.ViewModel" 
+             d:DataContext="{d:DesignInstance Type=viewmodel:TeamViewModel}"
+             mc:Ignorable="d" 
+             d:DesignHeight="450" d:DesignWidth="800"
+             Background="LightPink">
+    <Grid>
+        <StackPanel>
+            <ItemsControl ItemsSource="{Binding TeamBueno, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                          HorizontalAlignment="Center" VerticalAlignment="Center">
+                <ItemsControl.ItemsPanel>
+                    <ItemsPanelTemplate>
+                        <WrapPanel Orientation="Horizontal"/>
+                    </ItemsPanelTemplate>
+                </ItemsControl.ItemsPanel>
+                <ItemsControl.ItemTemplate>
+                    <DataTemplate>
+                        <Border Margin="5">
+                            <StackPanel>
+                                <Image Source="{Binding Image}" Stretch="Uniform" Height="200"/>
+                                <TextBlock Text="{Binding CaptureCount, StringFormat='Nivel: {0}'}" HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="20"/>
+                            </StackPanel>
+                        </Border>
+                    </DataTemplate>
+                </ItemsControl.ItemTemplate>
+            </ItemsControl>
+        </StackPanel>
+    </Grid>
+</UserControl>

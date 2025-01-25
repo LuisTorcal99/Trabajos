@@ -1,0 +1,75 @@
+﻿<UserControl x:Class="PokeRogue.View.BattleView"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:PokeRogue.View" 
+        xmlns:viewmodel="clr-namespace:PokeRogue.ViewModel" 
+        d:DataContext="{d:DesignInstance Type=viewmodel:BattleViewModel}"
+        mc:Ignorable="d"
+        d:DesignHeight="500" d:DesignWidth="500"
+        Background="LightPink">
+    <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="150"/>
+            <ColumnDefinition Width="*"/>
+            <ColumnDefinition Width="150"/>
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="300"/>
+            <RowDefinition Height="100"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+        
+        <Border Height="185" VerticalAlignment="Top" Margin="10,5,10,0" BorderBrush="Gray" BorderThickness="2" 
+                Grid.Column="0" Grid.ColumnSpan="3" Grid.Row="1" Grid.RowSpan="2">
+            <Border.Background>
+                <LinearGradientBrush StartPoint="0,0" EndPoint="0,1">
+                    <GradientStop Color="Black" Offset="1" />
+                    <GradientStop Color="LightGray" Offset="0" />
+                </LinearGradientBrush>
+            </Border.Background>
+            <Border.CornerRadius>
+                <CornerRadius TopLeft="20" TopRight="20" BottomLeft="0" BottomRight="0"/>
+            </Border.CornerRadius>
+        </Border>
+
+        <Button Command="{Binding Btn_CapturarCommand}" x:Name="Btn_Captura" Grid.Column="2" Grid.Row="1" Content="CAPTURAR" HorizontalAlignment="Center" 
+                VerticalAlignment="Center" Background="#FFE600FF" Foreground="White" Height="35" Width="100"/>
+        <Button Command="{Binding Btn_AtacarCommand}" x:Name="Btn_Atacar" Grid.Column="1" Grid.Row="1" Content="ATACAR" HorizontalAlignment="Center" 
+                VerticalAlignment="Center" FontSize="20" Background="#FF0090FF" Foreground="White" Height="65" Width="160"/>
+        <Button Command="{Binding Btn_EscaparCommand}" x:Name="Btn_Escapar" Grid.Column="0" Grid.Row="1" Content="Escapar" HorizontalAlignment="Center" 
+        VerticalAlignment="Center" Background="Red" Foreground="White" Height="35" Width="100"/>
+
+        <ProgressBar Grid.ColumnSpan="3" HorizontalAlignment="Center" Height="25" Grid.Row="2" VerticalAlignment="Center" 
+                     Width="370" Minimum="0" Maximum="1000" Value="{Binding BarraVidaUser}" Foreground="{Binding ColorHp}"/>
+        <TextBlock Text="{Binding PorcentajeVidaUsuario}" Grid.Row="2" Grid.Column="1"
+               VerticalAlignment="Center" HorizontalAlignment="Center" FontSize="16" Foreground="Black" />
+
+        <ProgressBar HorizontalAlignment="Center" Height="18" Grid.Row="0" VerticalAlignment="Center" Grid.Column="2"
+              Width="130" Minimum="0" Maximum="{Binding MaximaSaludEnemigo}" Value="{Binding BarraVidaEnemigo}" Foreground="#FF0666B0" />
+        <TextBlock Text="{Binding PorcentajeVidaEnemigo}" Grid.Row="0" Grid.Column="2"
+               VerticalAlignment="Center" HorizontalAlignment="Center" FontSize="16" Foreground="Black" />
+
+        <Label x:Name="PuntosDeAtaqueEnemigo" Content="{Binding Ataque_EnemigoContent, Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}"
+               HorizontalAlignment="Center" VerticalAlignment="Center" Grid.Row="0" Grid.Column="0" FontSize="35" Foreground="Red"/>
+
+        <TextBlock Text="{Binding EsShiny}" HorizontalAlignment="Center" VerticalAlignment="Top" FontFamily="Arial Black" FontSize="20" 
+                   Grid.Column="1" Foreground="DarkGoldenrod"/>
+
+        <StackPanel Grid.Row="0" Grid.Column="1">
+            <ItemsControl ItemsSource="{Binding Items, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" HorizontalAlignment="Center" VerticalAlignment="Center">
+                <ItemsControl.ItemTemplate>
+                    <DataTemplate>
+                        <Border Margin="5">
+                            <StackPanel>
+                                <Image Source="{Binding ImagePath}" Stretch="Uniform" Height="200"/>
+                                <TextBlock Text="{Binding PokemonName}" HorizontalAlignment="Center" VerticalAlignment="Center" FontFamily="Arial Black" FontSize="20" />
+                            </StackPanel>
+                        </Border>
+                    </DataTemplate>
+                </ItemsControl.ItemTemplate>
+            </ItemsControl>
+        </StackPanel>
+    </Grid>
+</UserControl>

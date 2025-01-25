@@ -1,0 +1,58 @@
+﻿<Window x:Class="BasicAPP.View.AddItemView"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:BasicAPP.View" 
+        xmlns:viewmodel="clr-namespace:BasicAPP.ViewModel" 
+        d:DataContext="{d:DesignInstance Type=viewmodel:AddItemViewModel}"
+        mc:Ignorable="d"
+        Title="AddItemView" Height="500" Width="500">
+    <Grid Margin="10">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="Auto"/>
+            <ColumnDefinition Width="*"/>
+        </Grid.ColumnDefinitions>
+
+        <!-- Label y TextBox para Base -->
+        <TextBlock Text="Base:" VerticalAlignment="Center" Grid.Row="0" Grid.Column="0" Margin="5"/>
+        <TextBox x:Name="txt_Base" Grid.Row="0" Grid.Column="1" Margin="5" Text="{Binding Base, UpdateSourceTrigger=PropertyChanged}"/>
+        <Rectangle Height="1" Fill="Gray" HorizontalAlignment="Stretch" Grid.Row="0" Grid.Column="1" VerticalAlignment="Bottom"/>
+
+        <!-- Label y TextBox para Aro -->
+        <TextBlock Text="Aro:" VerticalAlignment="Center" Grid.Row="1" Grid.Column="0" Margin="5"/>
+        <TextBox x:Name="txt_Aro" Grid.Row="1" Grid.Column="1" Margin="5" Text="{Binding Aro, UpdateSourceTrigger=PropertyChanged}"/>
+        <Rectangle Height="1" Fill="Gray" HorizontalAlignment="Stretch" Grid.Row="1" Grid.Column="1" VerticalAlignment="Bottom"/>
+
+        <!-- Label y TextBox para Pedales -->
+        <TextBlock Text="Pedales:" VerticalAlignment="Center" Grid.Row="2" Grid.Column="0" Margin="5"/>
+        <TextBox x:Name="txt_Pedales" Grid.Row="2" Grid.Column="1" Margin="5" Text="{Binding Pedales, UpdateSourceTrigger=PropertyChanged}"/>
+        <Rectangle Height="1" Fill="Gray" HorizontalAlignment="Stretch" Grid.Row="2" Grid.Column="1" VerticalAlignment="Bottom"/>
+
+        <!-- Label y ComboBox para Bool -->
+        <TextBlock Text="¿Consola?:" VerticalAlignment="Center" Grid.Row="3" Grid.Column="0" Margin="5"/>
+        <StackPanel x:Name="TiposDePlanetaStack" Margin="0,0,0,0" Grid.Column="1" Grid.Row="3">
+            <ComboBox x:Name="FuncionaEnConsola" 
+                         SelectedValue="{Binding BoolOptions, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" 
+                         SelectedValuePath="Content">
+                <ComboBoxItem x:Name="True" Content="True" />
+                <ComboBoxItem x:Name="False" Content="False" />
+            </ComboBox>
+        </StackPanel>
+        <Rectangle Height="1" Fill="Gray" HorizontalAlignment="Stretch" Grid.Row="3" Grid.Column="1" VerticalAlignment="Bottom"/>
+
+        <!-- Botones -->
+        <Button x:Name="btn_CancelarVentana" Content="Cancelar" Grid.Row="4" Grid.Column="0" VerticalAlignment="Bottom" 
+                Command="{Binding CancelarVentanaCommand}" Background="#FF009CFF" Foreground="White" Height="30" Width="79" Margin="5"/>
+        <Button x:Name="btn_AceptarVentana" Content="Aceptar" Grid.Row="4" Grid.Column="1" VerticalAlignment="Bottom" 
+                Command="{Binding AceptarVentanaCommand}" Background="#FF009CFF" Foreground="White" Height="30" Width="79" Margin="5"/>
+    </Grid>
+</Window>
