@@ -7,13 +7,15 @@ using System.Windows;
 using System.IO;
 using BasicAPP.Utils;
 using BasicAPP.View;
+using LoginRegister.Services;
+using Microsoft.Extensions.DependencyInjection;
+using System.Xml.Linq;
+using Microsoft.VisualBasic;
 
 namespace BasicAPP.ViewModel
 {
     public partial class LoginViewModel : ViewModelBase
     {
-        private readonly MainViewModel _mainViewModel;
-
         [ObservableProperty]
         public string _Correo;
 
@@ -26,20 +28,15 @@ namespace BasicAPP.ViewModel
         [ObservableProperty]
         public bool _remember;
 
-        [ObservableProperty]
-        public string _ValorarApp;
+        private readonly IHttpsJsonClientProvider<UserDTO> _httpJsonProvider;
 
-        [ObservableProperty]
-        public string _ValorApp;
-
-        public LoginViewModel(MainViewModel mainViewModel)
+        public LoginViewModel(IHttpsJsonClientProvider<UserDTO> httpJsonProvider)
         {
-            _mainViewModel = mainViewModel;
-            ValorarApp = "hidden";
-
+            _httpJsonProvider = httpJsonProvider;
             //Usuario y contraseña por velocidad
             Correo = "luis@gmail.com";
             Password = "gasdgSDG99A.";
+            
         }
 
         [RelayCommand]
@@ -53,47 +50,45 @@ namespace BasicAPP.ViewModel
         [RelayCommand]
         private async Task LoginNow()
         {
-            if (string.IsNullOrEmpty(Correo) || string.IsNullOrEmpty(Password))
-            {
-                MessageBox.Show(Constantes.ERROR_CAMPOSNULL);
-                Error = Constantes.ERROR_CAMPOSNULL;    
-                return;
-            }
+            App.Current.Services.GetService<LoginDTO>().Email = Correo;
+            App.Current.Services.GetService<LoginDTO>().Password = Password;
+
             try
             {
-                IHttpsJsonClientProvider<LoginDTO> httpsJsonClient = new HttpsJsonClientService<LoginDTO>(Constantes.BASE_URL);
+                UserDTO user = await _httpJsonProvider.LoginPostAsync(Constantes.LOGIN_PATH, App.Current.Services.GetService<LoginDTO>());
 
-                LoginDTO UsuarioLogueado = new LoginDTO(
-                    Correo, Password
-                );
+                if (user != null && user.Result != null && !string.IsNullOrEmpty(user.Result.Token))
+                {
+                    App.Current.Services.GetService<LoginDTO>().Token = user.Result.Token;
 
-                await httpsJsonClient.Post(Path.Combine(Constantes.BASE_URL, Constantes.LOGIN_PATH), UsuarioLogueado);
-
-                _mainViewModel.SelectedViewModel = _mainViewModel.DatosGridViewModel;
-
+                    // Cambiar de vista
+                    App.Current.Services.GetService<MainViewModel>().SelectedViewModel =
+                    App.Current.Services.GetService<DatosGridViewModel>();
+                }
+                else
+                {
+                    Error = "Error: Usuario o contraseña incorrectos.";
+                    MessageBox.Show("Error: Usuario o contraseña incorrectos.");
+                }
             }
             catch (Exception ex)
             {
                 Error = ex.Message;
                 MessageBox.Show(ex.Message);
             }
+
         }
 
         [RelayCommand]
         private void NavigateToRegistration()
         {
-            _mainViewModel.SelectedViewModel = _mainViewModel.RegistrationViewModel;
+            var mainWindow = App.Current.Services.GetService<MainViewModel>();
+            mainWindow.SelectedViewModel = App.Current.Services.GetService<MainViewModel>().RegistrationViewModel;
         }
 
         public override async Task LoadAsync()
         {
-            await Task.Delay(5000);
-            ValorarApp = "visible";
-            for (int i = 0; i <= 5; i++)
-            {
-                ValorApp = i.ToString();
-                await Task.Delay(1000);
-            }
+
         }
     }
 }

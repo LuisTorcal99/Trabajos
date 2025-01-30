@@ -34,6 +34,7 @@ namespace BasicAPP.ViewModel
         public AddItemViewModel(IVolantesApiProvider volantesService)
         {
             _volantesService = volantesService;
+            
         }
 
         public async Task LoadAsync()
@@ -44,13 +45,20 @@ namespace BasicAPP.ViewModel
         [RelayCommand]
         private async Task AceptarVentana(object? parameter)
         {
+            if (string.IsNullOrEmpty(Aro)
+                || string.IsNullOrEmpty(Base)
+                || string.IsNullOrEmpty(Pedales))
+            {
+                MessageBox.Show("Por favor, rellene todos los campos.", "Advertencia", MessageBoxButton.OK, MessageBoxImage.Warning);
+                return;
+            }
             try
             {
                 VolantesDTO PostVolante = new VolantesDTO(
                     Base, Aro, Pedales, BoolOptions
                 );
 
-                await _volantesService.PostAsync(PostVolante);
+                await _volantesService.PostVolantes(PostVolante);
 
                 MessageBox.Show("Volante añadido");
                 Application.Current.Windows.OfType<Window>().FirstOrDefault(w => w is AddItemView)?.Close();

@@ -40,29 +40,49 @@
                 <!-- Campo de Nombre -->
                 <Image Height="30" Width="30" VerticalAlignment="Center" Grid.Row="1" Grid.Column="0" Margin="0,0,10,0" Source="/Resources/usuario.png" />
                 <StackPanel Grid.Row="1" Grid.Column="1" Orientation="Vertical">
-                    <TextBox Height="40" Text="{Binding Nombre}" Background="White" BorderThickness="0"/>
-                    <Rectangle Height="1" Fill="Gray" HorizontalAlignment="Stretch" />
+                    <ui:TextBox
+                        PlaceholderText="Name" 
+                        Width="220"
+                        Height="20"
+                        Margin="0,10,0,10" 
+                        Background="AliceBlue"
+                        Text="{Binding Nombre, Mode=TwoWay}" />
                 </StackPanel>
 
                 <!-- Campo de Correo -->
                 <Image Height="30" Width="30" VerticalAlignment="Center" Grid.Row="2" Grid.Column="0" Margin="0,0,10,0" Source="/Resources/correo-electronico.png" />
                 <StackPanel Grid.Row="2" Grid.Column="1" Orientation="Vertical">
-                    <TextBox Height="40" Text="{Binding Correo}" Background="White" BorderThickness="0" />
-                    <Rectangle Height="1" Fill="Gray" HorizontalAlignment="Stretch" />
+                    <ui:TextBox
+                        PlaceholderText="Email" 
+                        Width="220"
+                        Height="20"
+                        Margin="0,10,0,10" 
+                        Background="AliceBlue"
+                        Text="{Binding Correo, Mode=TwoWay}" />
                 </StackPanel>
 
                 <!-- Campo de Contraseña -->
                 <Image Height="30" Width="30" Source="/Resources/cerrar-con-llave.png" VerticalAlignment="Center" Grid.Row="3" Grid.Column="0" Margin="0,0,10,0" />
                 <StackPanel Grid.Row="3" Grid.Column="1" Orientation="Vertical">
-                    <TextBox Height="40" Background="White" BorderThickness="0" Text="{Binding Password}"/>
-                    <Rectangle Height="1" Fill="Gray" HorizontalAlignment="Stretch" />
+                    <ui:PasswordBox 
+                        PlaceholderText="Contraseña" 
+                        Width="220" 
+                        Height="20"
+                        Margin="0,10,0,10" 
+                        Background="AliceBlue"
+                        Password="{Binding Password, Mode=TwoWay}" />
                 </StackPanel>
 
                 <!-- Campo de Confirmar Contraseña -->
                 <Image Height="30" Width="30" Source="/Resources/cerrar-con-llave.png" VerticalAlignment="Center" Grid.Row="4" Grid.Column="0" Margin="0,0,10,0" />
                 <StackPanel Grid.Row="4" Grid.Column="1" Orientation="Vertical">
-                    <TextBox Height="40" Background="White" BorderThickness="0" Text="{Binding PasswordEquals}"/>
-                    <Rectangle Height="1" Fill="Gray" HorizontalAlignment="Stretch" />
+                    <ui:PasswordBox 
+                        PlaceholderText="Repetir Contraseña" 
+                        Width="220" 
+                        Height="20"
+                        Margin="0,10,0,10" 
+                        Background="AliceBlue"
+                        Password="{Binding PasswordEquals, Mode=TwoWay}" />   
                 </StackPanel>
 
                 <!-- Términos y condiciones -->
@@ -82,8 +102,5 @@
                        Foreground="Red" />
             </Grid>
         </Border>
-        
-        <ui:ThumbRate HorizontalAlignment="Left" Margin="0,0,0,0" VerticalAlignment="Top" Background="Gold" Foreground="Gold"/>
-
     </Grid>
 </UserControl>

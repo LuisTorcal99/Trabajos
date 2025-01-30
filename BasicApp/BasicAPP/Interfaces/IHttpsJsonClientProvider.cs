@@ -1,13 +1,16 @@
-﻿using System.Threading.Tasks;
+﻿using System.Net.Http;
+using System.Threading.Tasks;
+using BasicAPP.DTO;
 
 namespace BasicAPP.Interfaces
 {
     public interface IHttpsJsonClientProvider<T> where T : class
     {
-        Task<T> Get(string url);
-        Task<T> Post(string url, T content);
-        Task<T> Put(string url, T content);
-        Task<bool> Delete(string url);
-        Task<T> Patch(string url, object patchData);
+        Task<IEnumerable<T>> GetAsync(string api_url);
+        Task<T?> PostAsync(string path, T data);
+        Task<T?> PutAsync(string path, T data);
+        Task Authenticate(string path, HttpClient httpClient, HttpResponseMessage request);
+        Task<T?> LoginPostAsync(string path, LoginDTO data);
+        Task<T?> RegisterPostAsync(string path, RegistroDTO data);
     }
 }

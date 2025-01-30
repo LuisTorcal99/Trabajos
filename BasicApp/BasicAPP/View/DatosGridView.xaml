@@ -12,13 +12,12 @@
              Background="white">
     <Grid>
         <Grid.RowDefinitions>
-            <!--<RowDefinition Height="50"/>-->
             <RowDefinition Height="*"/>
             <RowDefinition Height="*"/>
         </Grid.RowDefinitions>
 
         <ui:Button Content="ADD" Margin="0,0,30,30" Grid.Row="1" VerticalAlignment="Bottom" HorizontalAlignment="Right" Foreground="Black" 
-                   FontFamily="Arial Black" FontSize="18" Command="{Binding AddItemCommand}" Background="LightBlue">
+                   FontFamily="Arial Black" FontSize="18" Command="{Binding AddItemCommand}" Background="LightBlue" Width="71">
             <ui:Button.BorderBrush>
                 <LinearGradientBrush EndPoint="0,5" MappingMode="Absolute">
                     <GradientStop Color="#FF00E2FF"/>
@@ -26,8 +25,8 @@
             </ui:Button.BorderBrush>
         </ui:Button>
 
-        <ui:Button Content="Logout" Margin="30,0,0,30" Grid.Row="1" VerticalAlignment="Bottom" Foreground="Black" 
-           FontFamily="Arial Black" FontSize="18" Command="{Binding LogoutCommand}" Background="IndianRed">
+        <ui:Button Content="Logout" Margin="25,0,625,30" Grid.Row="1" VerticalAlignment="Bottom" Foreground="Black" 
+           FontFamily="Arial Black" FontSize="18" Command="{Binding LogoutCommand}" Background="IndianRed" >
             <ui:Button.BorderBrush>
                 <LinearGradientBrush EndPoint="0,5" MappingMode="Absolute">
                     <GradientStop Color="#FF00E2FF"/>
@@ -52,13 +51,11 @@
         VerticalAlignment="Stretch" />
 
         <!-- Paginación -->
-        <StackPanel Orientation="Horizontal" Grid.Row="1" HorizontalAlignment="Center" Margin="10">
-            <Button Content="Previous" Command="{Binding MoveToPreviousPageCommand}" Margin="5" Foreground="White" Background="Black"/>
-            <TextBlock Text="{Binding CurrentPage}" VerticalAlignment="Center" Margin="5" Foreground="Black"/>
-            <Button Content="Next" Command="{Binding MoveToNextPageCommand}" Margin="5" Foreground="White" Background="Black"/>
+        <StackPanel Orientation="Horizontal" Grid.Row="1" HorizontalAlignment="Center" Width="auto" VerticalAlignment="Center">
+            <Button Content="Previous" Command="{Binding MoveToPreviousPageCommand}" Margin="5" Foreground="Black" Background="Yellow" Height="50" FontFamily="Arial Black"/>
+            <TextBlock Text="{Binding CurrentPage}" VerticalAlignment="Center" Margin="5" Foreground="Black" FontFamily="Arial Black"/>
+            <Button Content="Next" Command="{Binding MoveToNextPageCommand}" Margin="5" Foreground="Black" Background="Green" Height="50" FontFamily="Arial Black"/>
         </StackPanel>
-
-        <!--<controls:MenuControl Grid.Row="0"/>-->
 
     </Grid>
 </UserControl>

@@ -4,6 +4,9 @@ using BasicAPP.Service;
 using BasicAPP.Utils;
 using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
+using LoginRegister.Services;
+using Microsoft.Extensions.DependencyInjection;
+using Microsoft.VisualBasic;
 using System.IO;
 using System.Threading.Tasks;
 using System.Windows;
@@ -12,7 +15,7 @@ namespace BasicAPP.ViewModel
 {
     public partial class RegistrationViewModel : ViewModelBase
     {
-        private readonly MainViewModel _mainViewModel;
+        private readonly IHttpsJsonClientProvider<UserDTO> _httpJsonProvider;
 
         [ObservableProperty]
         public string _Nombre;
@@ -32,15 +35,18 @@ namespace BasicAPP.ViewModel
         [ObservableProperty]
         public bool _Terminos;
 
-        public RegistrationViewModel(MainViewModel mainViewModel)
+        public RegistrationViewModel(IHttpsJsonClientProvider<UserDTO> httpJsonProvider)
         {
-            _mainViewModel = mainViewModel;
+            _httpJsonProvider = httpJsonProvider;
         }
 
         [RelayCommand]
         private async Task RegisterNowAsync()
         {
-            if (string.IsNullOrEmpty(Correo) || string.IsNullOrEmpty(Password) || string.IsNullOrEmpty(PasswordEquals) || string.IsNullOrEmpty(Nombre))
+            if (string.IsNullOrEmpty(Correo) 
+                || string.IsNullOrEmpty(Password) 
+                || string.IsNullOrEmpty(PasswordEquals) 
+                || string.IsNullOrEmpty(Nombre))
             {
                 MessageBox.Show(Constantes.ERROR_CAMPOSNULL);
                 Error = Constantes.ERROR_CAMPOSNULL;
@@ -62,16 +68,14 @@ namespace BasicAPP.ViewModel
 
             try
             {
-                IHttpsJsonClientProvider<RegistroDTO> httpsJsonClient = new HttpsJsonClientService<RegistroDTO>(Constantes.BASE_URL);
-
                 RegistroDTO UsuarioRegistrado = new RegistroDTO(
                     Nombre, Nombre, Correo, Password, Constantes.ROLE_REGISTRER_ADMIN
                 );
 
-                await httpsJsonClient.Post(Path.Combine(Constantes.BASE_URL, Constantes.REGISTER_PATH), UsuarioRegistrado);
+                UserDTO user = await _httpJsonProvider.RegisterPostAsync(Constantes.REGISTER_PATH, UsuarioRegistrado);
 
                 MessageBox.Show("Usuario registrado con éxito", "Registro", MessageBoxButton.OK, MessageBoxImage.Information);
-                _mainViewModel.SelectedViewModel = _mainViewModel.LoginViewModel;
+                App.Current.Services.GetService<MainViewModel>().SelectedViewModel = App.Current.Services.GetService<MainViewModel>().LoginViewModel;
             }
             catch (Exception ex)
             {
@@ -85,12 +89,11 @@ namespace BasicAPP.ViewModel
         [RelayCommand]
         private void NavigateToLogin()
         {
-            _mainViewModel.SelectedViewModel = _mainViewModel.LoginViewModel;
+            App.Current.Services.GetService<MainViewModel>().SelectedViewModel = App.Current.Services.GetService<MainViewModel>().LoginViewModel;
         }
 
         public override Task LoadAsync()
         {
-            // Cargar lógica específica del registro si es necesario
             return Task.CompletedTask;
         }
     }

@@ -16,11 +16,13 @@ namespace BasicAPP.DTO
         public string Email { get; set; }
         [JsonPropertyName("password")]
         public string Password { get; set; }
+        public string Token { get; set; }
 
         public LoginDTO(string correo, string password)
         {
             Email = correo;
             Password = password;
+            
         }
 
         public LoginDTO()

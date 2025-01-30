@@ -1,145 +1,215 @@
-﻿using System;
-using System.Net.Http;
-using System.Net.Http.Headers;
-using System.Net.Http.Json;
+﻿using System.Net.Http;
 using System.Text;
 using System.Text.Json;
-using System.Threading.Tasks;
-using BasicAPP.DTO;
-using BasicAPP.Interfaces;
+using Microsoft.Extensions.DependencyInjection;
 using BasicAPP.Utils;
+using BasicAPP.Interfaces;
+using BasicAPP.DTO;
+using BasicAPP;
 
-namespace BasicAPP.Service
+
+namespace LoginRegister.Services
 {
-    public class HttpsJsonClientService<T> : IHttpsJsonClientProvider<T> where T : class
+    internal class HttpsJsonClientService<T> : IHttpsJsonClientProvider<T> where T : class
     {
-        private readonly HttpClient _httpClient;
-        private string _token;
 
-        public HttpsJsonClientService(string baseUrl, string token = "")
-        {
-            _httpClient = new HttpClient { BaseAddress = new Uri(baseUrl) };
-            _token = token;
+        public static string Token = string.Empty;
 
-            LoginDTO loginDTO = new LoginDTO
-            {
-                Email = "luis@gmail.com",
-                Password = "gasdgSDG99A."
-            };
 
-            if (!string.IsNullOrEmpty(_token))
-            {
-                _httpClient.DefaultRequestHeaders.Add("Authorization", $"Bearer {_token}");
-            }
-        }
+        LoginDTO loginDTO = App.Current.Services.GetService<LoginDTO>();
 
-        public async Task<T?> Get(string path)
+        public async Task<IEnumerable<T?>> GetAsync(string path)
         {
             try
             {
-                HttpResponseMessage request = await _httpClient.GetAsync(path);
-
-                if (request.StatusCode == System.Net.HttpStatusCode.Unauthorized)
+                using HttpClient httpClient = new HttpClient();
                 {
-                    await RefreshTokenAsync();
-                    request = await _httpClient.GetAsync(path);
-                }
-
-                if (!request.IsSuccessStatusCode)
-                {
-                    Console.WriteLine($"Error en la solicitud GET: {request.StatusCode}");
-                    return default;
-                }
-
-                string dataRequest = await request.Content.ReadAsStringAsync();
-                return JsonSerializer.Deserialize<T>(dataRequest);
-            }
-            catch (JsonException ex)
-            {
-                Console.WriteLine($"Error al deserializar los datos: {ex.Message}");
-                return default;
-            }
-            catch (Exception ex)
-            {
-                Console.WriteLine($"Error en Get: {ex.Message}");
-                return default;
-            }
-        }
-
-        private async Task RefreshTokenAsync()
-        {
-            try
-            {
-                LoginDTO loginDTO = new LoginDTO
-                {
-                    Email = "luis@gmail.com",
-                    Password = "gasdgSDG99A."
-                };
-
-                HttpContent httpContent = CreateJsonContent(loginDTO);
-                HttpResponseMessage response = await _httpClient.PostAsync(Constantes.LOGIN_PATH + "/login", httpContent);
-
-                if (!response.IsSuccessStatusCode)
-                {
-                    Console.WriteLine($"Error al obtener un nuevo token: {response.StatusCode}");
-                    return;
-                }
-
-                string dataTokenRequest = await response.Content.ReadAsStringAsync();
-                UserDTO tokenUser = JsonSerializer.Deserialize<UserDTO>(dataTokenRequest);
-
-                _token = tokenUser?.Result?.Token ?? string.Empty;
-
-                if (!string.IsNullOrEmpty(_token))
-                {
-                    _httpClient.DefaultRequestHeaders.Remove("Authorization");
-                    _httpClient.DefaultRequestHeaders.Add("Authorization", $"Bearer {_token}");
+                    httpClient.DefaultRequestHeaders.Add("Authorization", $"Bearer {loginDTO.Token}");
+                    HttpResponseMessage request = await httpClient.GetAsync($"{Constantes.BASE_URL}{path}");
+                    if (request.StatusCode == System.Net.HttpStatusCode.Unauthorized)
+                    {
+                        await Authenticate(path, httpClient, request);
+                        request = await httpClient.GetAsync($"{Constantes.BASE_URL}{path}");
+                    }
+                    string dataRequest = await request.Content.ReadAsStringAsync();
+                    return JsonSerializer.Deserialize<IEnumerable<T>>(dataRequest);
                 }
             }
             catch (Exception ex)
             {
-                Console.WriteLine($"Error al refrescar el token: {ex.Message}");
-                throw;
+                Console.WriteLine(ex.Message);
             }
+            return default;
         }
 
-        private HttpContent CreateJsonContent(object data)
+        public async Task Authenticate(string path, HttpClient httpClient, HttpResponseMessage request)
         {
-            return new StringContent(JsonSerializer.Serialize(data), Encoding.UTF8, "application/json");
+            HttpContent httpContent = new StringContent(JsonSerializer.Serialize(loginDTO), Encoding.UTF8, "application/json");
+
+            HttpResponseMessage requestToken = await httpClient.PostAsync($"{Constantes.BASE_URL}{Constantes.LOGIN_PATH}", httpContent);
+
+            string dataTokenRequest = await requestToken.Content.ReadAsStringAsync();
+            UserDTO tokenUser = JsonSerializer.Deserialize<UserDTO>(dataTokenRequest);
+
+            Token = tokenUser?.Result?.Token ?? string.Empty;
+            httpClient.DefaultRequestHeaders.Remove("Authorization");
+            httpClient.DefaultRequestHeaders.Add("Authorization", $"Bearer {loginDTO.Token}");
         }
 
-        public async Task<T> Post(string url, T content)
+        public async Task<T?> PostAsync(string path, T data)
         {
-            HttpResponseMessage response = await _httpClient.PostAsJsonAsync(url, content);
-            response.EnsureSuccessStatusCode();
-            return await response.Content.ReadFromJsonAsync<T>();
-        }
-
-
-        public async Task<T> Put(string url, T content)
-        {
-            HttpResponseMessage response = await _httpClient.PutAsJsonAsync(url, content);
-            response.EnsureSuccessStatusCode();
-            return await response.Content.ReadFromJsonAsync<T>();
-        }
-
-        public async Task<bool> Delete(string url)
-        {
-            HttpResponseMessage response = await _httpClient.DeleteAsync(url);
-            response.EnsureSuccessStatusCode();
-            return response.IsSuccessStatusCode;
-        }
-
-        public async Task<T> Patch(string url, object patchData)
-        {
-            HttpRequestMessage request = new HttpRequestMessage(new HttpMethod("PATCH"), url)
+            try
             {
-                Content = JsonContent.Create(patchData)
-            };
+                using (HttpClient httpClient = new HttpClient())
+                {
 
-            HttpResponseMessage response = await _httpClient.SendAsync(request);
-            response.EnsureSuccessStatusCode();
-            return await response.Content.ReadFromJsonAsync<T>();
+                    httpClient.DefaultRequestHeaders.Add("Authorization", $"Bearer {loginDTO.Token}");
+
+                    // Serializar el objeto 'data' a JSON
+                    string jsonContent = JsonSerializer.Serialize(data);
+
+                    // Crear el contenido HTTP con el tipo adecuado para enviar JSON
+                    var content = new StringContent(jsonContent, Encoding.UTF8, "application/json");
+
+                    HttpResponseMessage response = await httpClient.PostAsync($"{Constantes.BASE_URL}{path}", content);
+
+                    if (response.StatusCode == System.Net.HttpStatusCode.Unauthorized)
+                    {
+
+                        await Authenticate(path, httpClient, response);
+
+                        // Realizar la solicitud POST
+                        response = await httpClient.PostAsync($"{Constantes.BASE_URL}{path}", content);
+
+                        // Verificar si la respuesta fue exitosa
+                        if (response.IsSuccessStatusCode)
+                        {
+                            // Leer el contenido de la respuesta y deserializarlo
+                            string responseBody = await response.Content.ReadAsStringAsync();
+                            return JsonSerializer.Deserialize<T>(responseBody, new JsonSerializerOptions { PropertyNameCaseInsensitive = true });
+                        }
+                        else
+                        {
+                            Console.WriteLine("Error en la respuesta: " + response.StatusCode);
+                        }
+                    }
+                    string dataRequest = await response.Content.ReadAsStringAsync();
+                    return JsonSerializer.Deserialize<T>(dataRequest);
+                }
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine($"Error en la solicitud POST: {ex.Message}");
+            }
+            return default;
+        }
+
+
+        public async Task<T?> LoginPostAsync(string path, LoginDTO data)
+        {
+            try
+            {
+                using (HttpClient httpClient = new HttpClient())
+                {
+
+                    httpClient.DefaultRequestHeaders.Add("Authorization", $"Bearer {loginDTO.Token}");
+
+                    // Serializar el objeto 'data' () a JSON
+                    string jsonContent = JsonSerializer.Serialize(data);
+
+                    // Crear el contenido HTTP con el tipo adecuado para enviar JSON
+                    var content = new StringContent(jsonContent, Encoding.UTF8, "application/json");
+
+                    HttpResponseMessage response = await httpClient.PostAsync($"{Constantes.BASE_URL}{path}", content);
+
+                    // Leer el contenido de la respuesta y deserializarlo
+                    string responseBody = await response.Content.ReadAsStringAsync();
+                    return JsonSerializer.Deserialize<T>(responseBody, new JsonSerializerOptions { PropertyNameCaseInsensitive = true });
+                }
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine($"Error en la solicitud POST: {ex.Message}");
+            }
+            return default;
+        }
+
+        public async Task<T?> RegisterPostAsync(string path, RegistroDTO data)
+        {
+            try
+            {
+                using (HttpClient httpClient = new HttpClient())
+                {
+
+                    httpClient.DefaultRequestHeaders.Add("Authorization", $"Bearer {loginDTO.Token}");
+
+                    // Serializar el objeto 'data' (UserRegistroDTO) a JSON
+                    string jsonContent = JsonSerializer.Serialize(data);
+
+                    // Crear el contenido HTTP con el tipo adecuado para enviar JSON
+                    var content = new StringContent(jsonContent, Encoding.UTF8, "application/json");
+
+                    HttpResponseMessage response = await httpClient.PostAsync($"{Constantes.BASE_URL}{path}", content);
+
+                    // Leer el contenido de la respuesta y deserializarlo
+                    string responseBody = await response.Content.ReadAsStringAsync();
+                    return JsonSerializer.Deserialize<T>(responseBody, new JsonSerializerOptions { PropertyNameCaseInsensitive = true });
+                }
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine($"Error en la solicitud POST: {ex.Message}");
+            }
+            return default;
+        }
+
+
+
+        public async Task<T?> PutAsync(string path, T data)
+        {
+            try
+            {
+                using (HttpClient httpClient = new HttpClient())
+                {
+                    // Agregar encabezado Authorization si es necesario
+                    httpClient.DefaultRequestHeaders.Add("Authorization", $"Bearer {loginDTO.Token}");
+
+                    // Serializar el objeto 'data' (dto) a JSON
+                    string jsonContent = JsonSerializer.Serialize(data,
+                     new JsonSerializerOptions
+                     {
+                         DefaultIgnoreCondition = System.Text.Json.Serialization.JsonIgnoreCondition.WhenWritingNull,
+                         WriteIndented = true  // Hace que el JSON sea más legible (con saltos de línea y espacios)
+                     });
+
+                    // Crear el contenido HTTP con el tipo adecuado para enviar JSON
+                    var content = new StringContent(jsonContent, Encoding.UTF8, "application/json");
+
+                    // Realizar la solicitud PATCH
+                    HttpResponseMessage request = await httpClient.PutAsync($"{Constantes.BASE_URL}{path}", content);
+
+                    if (request.StatusCode == System.Net.HttpStatusCode.Unauthorized)
+                    {
+                        await Authenticate(path, httpClient, request);
+                        request = await httpClient.PutAsync($"{Constantes.BASE_URL}{path}", content);
+
+                        if (request.IsSuccessStatusCode)
+                        {
+                            string responseBody = await request.Content.ReadAsStringAsync();
+                            return JsonSerializer.Deserialize<T?>(responseBody, new JsonSerializerOptions { PropertyNameCaseInsensitive = true });
+                        }
+                        else
+                        {
+                            Console.WriteLine("Error en la respuesta: " + request.StatusCode);
+                        }
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine($"Error en la solicitud PATCH: {ex.Message}");
+            }
+            return default;
         }
     }
 }

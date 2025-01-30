@@ -25,11 +25,8 @@
 
     <Grid>
         <Grid.RowDefinitions>
-            <!--<RowDefinition Height="75"/>-->
             <RowDefinition Height="*" />
         </Grid.RowDefinitions>
-
-        <!--<controls:MenuControl Grid.Row="0" VerticalAlignment="Center" />-->
 
         <ContentControl Content="{Binding SelectedViewModel}" />
 

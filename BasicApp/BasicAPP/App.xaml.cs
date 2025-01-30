@@ -1,9 +1,11 @@
 ﻿using System.Configuration;
 using System.Data;
 using System.Windows;
+using BasicAPP.DTO;
 using BasicAPP.Interfaces;
 using BasicAPP.Service;
 using BasicAPP.ViewModel;
+using LoginRegister.Services;
 using Microsoft.Extensions.DependencyInjection;
 
 namespace BasicAPP
@@ -40,6 +42,8 @@ namespace BasicAPP
             services.AddTransient<AddItemViewModel>();
             services.AddTransient<CambiarContraseñaViewModel>();
             //Services 
+            services.AddSingleton<MainViewModel>();
+            services.AddSingleton<LoginDTO>();
             services.AddSingleton<IVolantesApiProvider, VolantesApiService>();
             services.AddSingleton(typeof(IHttpsJsonClientProvider<>), typeof(HttpsJsonClientService<>));
 

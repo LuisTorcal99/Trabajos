@@ -9,7 +9,10 @@ namespace BasicAPP.Interfaces
 {
     public interface IVolantesApiProvider
     {
-        public Task<List<VolantesDTO>> GetAsync();
-        public Task<VolantesDTO?> PostAsync(VolantesDTO content);
+        Task<IEnumerable<VolantesDTO>> GetVolantes();
+
+        Task PostVolantes(VolantesDTO volantes);
+
+        Task PutVolantes(VolantesDTO volantes);
     }
 }

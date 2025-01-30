@@ -9,9 +9,13 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <None Remove="Resources\Base-de-volante-Moza-R12-tienda-simracing-moza.jpg" />
     <None Remove="Resources\cerrar-con-llave.png" />
     <None Remove="Resources\correo-electronico.png" />
+    <None Remove="Resources\moza-racing-crp-pedals.jpg" />
+    <None Remove="Resources\PlayStation-Xbox.jpeg" />
     <None Remove="Resources\usuario.png" />
+    <None Remove="Resources\Volante-Moza-KS-tienda-simracing-moza.jpg" />
   </ItemGroup>
 	<ItemGroup>
 		<PackageReference Include="CommunityToolkit.Mvvm" Version="8.3.2" />
@@ -24,13 +28,25 @@
 	  </Reference>
 	</ItemGroup>
 	<ItemGroup>
+	  <Resource Include="Resources\Base-de-volante-Moza-R12-tienda-simracing-moza.jpg">
+	    <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+	  </Resource>
 	  <Resource Include="Resources\cerrar-con-llave.png">
 	    <CopyToOutputDirectory>Always</CopyToOutputDirectory>
 	  </Resource>
 	  <Resource Include="Resources\correo-electronico.png">
 	    <CopyToOutputDirectory>Always</CopyToOutputDirectory>
 	  </Resource>
+	  <Resource Include="Resources\moza-racing-crp-pedals.jpg">
+	    <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+	  </Resource>
+	  <Resource Include="Resources\PlayStation-Xbox.jpeg">
+	    <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+	  </Resource>
 	  <Resource Include="Resources\usuario.png">
+	    <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+	  </Resource>
+	  <Resource Include="Resources\Volante-Moza-KS-tienda-simracing-moza.jpg">
 	    <CopyToOutputDirectory>Always</CopyToOutputDirectory>
 	  </Resource>
 	</ItemGroup>

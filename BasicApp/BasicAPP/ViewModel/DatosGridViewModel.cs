@@ -7,25 +7,26 @@ using System.Windows;
 using BasicAPP.DTO;
 using BasicAPP.Interfaces;
 using BasicAPP.Model;
+using BasicAPP.Service;
 using BasicAPP.Utils;
 using BasicAPP.View;
 using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
+using Microsoft.Extensions.DependencyInjection;
 
 namespace BasicAPP.ViewModel
 {
     public partial class DatosGridViewModel : ViewModelBase
     {
         private readonly IVolantesApiProvider _volantesService;
-        private MainViewModel _mainViewModel;
+        private IHttpsJsonClientProvider<VolantesDTO> _httpsJsonClientProvider;
 
         private int _currentPage = 1;
         private readonly int _itemsPerPage = 2;
 
-        public DatosGridViewModel(IVolantesApiProvider volantesService, MainViewModel mainViewModel)
+        public DatosGridViewModel(IVolantesApiProvider volantesService)
         {
             _volantesService = volantesService;
-            _mainViewModel = mainViewModel;
             DatosGridItem = new ObservableCollection<ItemGridModel>();
             PaginatedItems = new ObservableCollection<ItemGridModel>();
             LoadVolantesAsync();
@@ -87,7 +88,8 @@ namespace BasicAPP.ViewModel
             DatosGridItem.Clear();
             try
             {
-                var volantes = await _volantesService.GetAsync();
+                var volantes = await _volantesService.GetVolantes();
+
                 if (volantes != null)
                 {
                     foreach (var volante in volantes)
@@ -119,7 +121,8 @@ namespace BasicAPP.ViewModel
         [RelayCommand]
         public async Task Logout()
         {
-            _mainViewModel.SelectedViewModel = _mainViewModel.LoginViewModel;
+            App.Current.Services.GetService<LoginDTO>().Token = "";
+            App.Current.Services.GetService<MainViewModel>().SelectedViewModel = App.Current.Services.GetService<MainViewModel>().LoginViewModel;
         }
 
         public override async Task LoadAsync()

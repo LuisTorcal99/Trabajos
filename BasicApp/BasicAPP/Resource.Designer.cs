@@ -63,6 +63,16 @@ namespace BasicAPP {
         /// <summary>
         ///   Busca un recurso adaptado de tipo System.Byte[].
         /// </summary>
+        internal static byte[] Base {
+            get {
+                object obj = ResourceManager.GetObject("Base", resourceCulture);
+                return ((byte[])(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Busca un recurso adaptado de tipo System.Byte[].
+        /// </summary>
         internal static byte[] candado {
             get {
                 object obj = ResourceManager.GetObject("candado", resourceCulture);
@@ -83,9 +93,39 @@ namespace BasicAPP {
         /// <summary>
         ///   Busca un recurso adaptado de tipo System.Byte[].
         /// </summary>
+        internal static byte[] Pedales {
+            get {
+                object obj = ResourceManager.GetObject("Pedales", resourceCulture);
+                return ((byte[])(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Busca un recurso adaptado de tipo System.Byte[].
+        /// </summary>
+        internal static byte[] PlayStation_Xbox {
+            get {
+                object obj = ResourceManager.GetObject("PlayStation-Xbox", resourceCulture);
+                return ((byte[])(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Busca un recurso adaptado de tipo System.Byte[].
+        /// </summary>
         internal static byte[] usuario {
             get {
                 object obj = ResourceManager.GetObject("usuario", resourceCulture);
+                return ((byte[])(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Busca un recurso adaptado de tipo System.Byte[].
+        /// </summary>
+        internal static byte[] Volante {
+            get {
+                object obj = ResourceManager.GetObject("Volante", resourceCulture);
                 return ((byte[])(obj));
             }
         }

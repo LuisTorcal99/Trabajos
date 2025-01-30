@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using BasicAPP.DTO;
 using BasicAPP.Interfaces;
 using BasicAPP.Service;
 using CommunityToolkit.Mvvm.ComponentModel;
@@ -14,14 +15,12 @@ namespace BasicAPP.ViewModel
     {
         private ViewModelBase? _selectedViewModel;
 
-        public MainViewModel()
+        public MainViewModel(LoginViewModel login, RegistrationViewModel registro, DatosGridViewModel Datos)
         {
-            var volantesService = new VolantesApiService();
-
-            LoginViewModel = new LoginViewModel(this);
-            RegistrationViewModel = new RegistrationViewModel(this);
-            DatosGridViewModel = new DatosGridViewModel(volantesService, this);
-            SelectedViewModel = LoginViewModel;
+            LoginViewModel = login;
+            RegistrationViewModel = registro;
+            DatosGridViewModel = Datos;
+            SelectedViewModel = login;
         }
 
         public LoginViewModel LoginViewModel { get; set; }

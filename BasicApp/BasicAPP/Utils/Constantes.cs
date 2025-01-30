@@ -13,7 +13,7 @@ namespace BasicAPP.Utils
         public const string BASE_LOCAL_DIRECTORY = "./FILES";
         public const string JSON_FILTER = "JSON Files (*.json)|*.json|All Files (*.*)|*.*";
 
-        public const string BASE_URL = "https://localhost:7000/api/";
+        public const string BASE_URL = "http://localhost:7000/api/";
         public const string LOGIN_PATH = "users/login";
         public const string USERS_PATH = "users";
         public const string REGISTER_PATH = "users/register";

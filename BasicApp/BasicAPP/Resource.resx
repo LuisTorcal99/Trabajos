@@ -127,4 +127,16 @@
   <data name="candado" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>Resources\cerrar-con-llave.png;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
+  <data name="Base" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>Resources\Base-de-volante-Moza-R12-tienda-simracing-moza.jpg;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="Pedales" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>Resources\moza-racing-crp-pedals.jpg;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="Volante" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>Resources\Volante-Moza-KS-tienda-simracing-moza.jpg;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="PlayStation-Xbox" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>Resources\PlayStation-Xbox.jpeg;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
 </root>

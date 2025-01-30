@@ -12,13 +12,43 @@ namespace BasicAPP.Service
 {
     public class VolantesApiService : IVolantesApiProvider
     {
-        public async Task<List<VolantesDTO>> GetAsync()
+        public readonly IHttpsJsonClientProvider<VolantesDTO> _httpsJsonClientProvider;
+        public VolantesApiService(IHttpsJsonClientProvider<VolantesDTO> httpsJsonClientProvider)
         {
-            return await HttpJsonClient<List<VolantesDTO>>.Get(Constantes.VOLANTES_PATH);
+            _httpsJsonClientProvider = httpsJsonClientProvider;
         }
-        public async Task<VolantesDTO?> PostAsync(VolantesDTO content)
+
+        public async Task<IEnumerable<VolantesDTO>> GetVolantes()
         {
-            return await HttpJsonClient<VolantesDTO>.Post(Constantes.VOLANTES_PATH, content);
+            IEnumerable<VolantesDTO> Volantes = await _httpsJsonClientProvider.GetAsync(Constantes.VOLANTES_PATH);
+
+            return Volantes;
+        }
+
+        public async Task PostVolantes(VolantesDTO volante)
+        {
+            try
+            {
+                if (volante == null) return;
+                var response = await _httpsJsonClientProvider.PostAsync(Constantes.VOLANTES_PATH, volante);
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine(ex.Message);
+            }
+        }
+
+        public async Task PutVolantes(VolantesDTO volante)
+        {
+            try
+            {
+                if (volante == null) return;
+                var response = await _httpsJsonClientProvider.PutAsync(Constantes.VOLANTES_PATH + "/" + volante.Id, volante);
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine(ex.Message);
+            }
         }
     }
 }
