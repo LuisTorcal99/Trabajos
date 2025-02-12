@@ -1,0 +1,17 @@
+<section>
+  <img class="imagenL" src="../../../assets/NeriAndHu.jpg" alt="Neri & Hu Studio" width="700" height="700">
+  <p class="image-text">Neri & Hu Studio</p>
+</section>
+<section class="Descripcion">
+  Lyndon Neri es un reconocido diseñador industrial, arquitecto y 
+  cofundador de Neri & Hu Design and Research Office, un estudio con 
+  sede en Shanghái, China. Junto con su esposa y socia, Rossana Hu, 
+  ha desarrollado un enfoque multidisciplinario que abarca arquitectura, 
+  diseño de interiores, mobiliario y productos industriales.
+</section>
+<section>
+<app-productoSub
+    *ngFor="let neriModel of neriList"
+    [neriModel]="neriModel"
+  ></app-productoSub>
+</section>

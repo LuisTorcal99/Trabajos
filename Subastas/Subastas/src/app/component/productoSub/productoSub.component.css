@@ -1,0 +1,52 @@
+.listing {
+  border: 1px solid #ddd;
+  margin: 20px;
+  padding: 20px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  background-color: #fff;  /* Asegúrate de que tenga fondo blanco para resaltar el contenido */
+  border-radius: 8px; /* Bordes redondeados para un diseño más suave */
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); /* Agregar sombra para destacar el contenedor */
+}
+
+.listing-photo {
+  width: 100%;
+  height: auto;
+  max-width: 300px;  /* Ajusta el tamaño según sea necesario */
+  border-radius: 8px;
+  object-fit: cover; /* Para asegurarte de que la imagen se recorte adecuadamente sin distorsionar */
+}
+
+.listing-heading {
+  font-size: 1.5rem;
+  font-weight: bold;
+  margin-top: 10px;
+  color: #333; /* Asegúrate de que el texto sea legible */
+  text-align: center;
+}
+
+.listing-price {
+  font-size: 1.2rem;
+  font-weight: 600;
+  margin-top: 8px;
+  color: #007bff; /* Coloca un color que destaque, como el azul para el precio */
+  text-align: center;
+}
+
+.listing-location {
+  font-size: 1rem;
+  color: #777;
+  text-align: center;
+}
+
+@media (max-width: 768px) {
+  .listing {
+    padding: 15px;
+    margin: 10px;
+  }
+
+  .listing-photo {
+    max-width: 250px;
+  }
+}

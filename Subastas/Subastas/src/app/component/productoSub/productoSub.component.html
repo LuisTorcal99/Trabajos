@@ -1,0 +1,11 @@
+<section class="listing">
+  <img 
+    routerLink="/producto/{{ neriModel.id }}" 
+    class="listing-photo" 
+    [src]="neriModel.photo" 
+    alt="Photo of {{ neriModel.name }}" 
+    crossorigin 
+  />
+  <h2 class="listing-heading">{{ neriModel.name }}</h2>
+  <p class="listing-price">Price: {{ neriModel.price | currency }}</p>
+</section>

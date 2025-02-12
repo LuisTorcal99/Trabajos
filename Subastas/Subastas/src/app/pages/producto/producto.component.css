@@ -1,0 +1,53 @@
+.listing {
+  padding: 20px;
+  background-color: #f9f9f9;
+  border-radius: 10px;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+}
+
+.listing-photo {
+  width: 100%;
+  max-width: 400px;
+  height: auto;
+  object-fit: cover;
+}
+
+.listing-heading {
+  font-size: 2rem;
+  color: #333;
+}
+
+.listing-price {
+  font-size: 1.5rem;
+  font-weight: bold;
+  color: #27ae60;
+}
+
+.pujar-btn {
+  padding: 12px;
+  font-size: 1rem;
+  background-color: #e74c3c; /* Rojo fuerte para advertencia */
+  color: #fff;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background-color 0.3s;
+}
+
+input{
+  padding: 10px;
+  font-size: 1rem;
+  border-radius: 5px;
+  margin: 1%;
+}
+
+h3{
+  font-style: oblique;
+  font-size: larger;
+  color: goldenrod;
+  
+}
+
+.pujar-btn:hover {
+  background-color: #c0392b; /* Rojo más oscuro cuando se pasa el cursor */
+}
