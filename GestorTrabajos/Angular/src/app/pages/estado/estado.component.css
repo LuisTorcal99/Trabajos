@@ -1,0 +1,88 @@
+.propuesta-grid {
+  display: grid;
+  grid-template-columns: 1fr 2fr 1fr;
+  gap: 1rem;
+  border: 1px solid #ddd;
+  padding: 1rem;
+}
+
+.propuesta-header {
+  font-weight: bold;
+  display: contents; /* Esto hace que los títulos actúen como celdas de la tabla */
+}
+
+.propuesta-header span {
+  padding: 0.5rem;
+  background-color: #f4f4f4;
+  border: 1px solid #ddd;
+  text-align: center;
+}
+
+.propuesta-row {
+  display: contents; /* Igualmente, las filas se comportan como celdas de la tabla */
+}
+
+.propuesta-row span {
+  padding: 0.5rem;
+  border: 1px solid #ddd;
+  text-align: center;
+}
+
+.enviada {
+  color: #fff;
+  background-color: blue;
+}
+
+.aceptada {
+  color: #fff;
+  background-color: green;
+}
+
+.rechazada {
+  color: #fff;
+  background-color: red;
+}
+
+.informacion-adicional {
+  color: black;
+  background-color: yellow;
+}
+
+/* Nuevo estilo para el campo de texto cuando se edita */
+.propuesta-row input {
+  width: 100%;
+  padding: 1rem; /* Aumentar el padding para hacerlo más grande */
+  font-size: 1.2rem; /* Aumentar el tamaño de fuente para que el texto sea más grande */
+  border: 1px solid #ddd;
+  border-radius: 5px;
+  box-sizing: border-box;
+  background-color: #f0f0f0; /* Fondo claro cuando se edita */
+}
+
+.propuesta-row input:disabled {
+  background-color: #f9f9f9; /* Fondo normal cuando el campo está deshabilitado */
+}
+
+/* Estilos para el botón "Guardar cambios" */
+.save-button {
+  padding: 0.5rem 1rem;
+  background-color: #4CAF50; /* Color verde */
+  color: white;
+  border: none;
+  border-radius: 5px;
+  font-size: 1rem;
+  cursor: pointer;
+  transition: background-color 0.3s, transform 0.2s; /* Efecto de transición */
+}
+
+/* Estilo cuando el botón está en hover */
+.save-button:hover {
+  background-color: #45a049; /* Verde más oscuro cuando el mouse pasa sobre el botón */
+  transform: scale(1.05); /* Efecto de aumento al hacer hover */
+}
+
+/* Estilo para el estado de desactivado (si es necesario) */
+.save-button:disabled {
+  background-color: #ccc; /* Color gris cuando el botón está deshabilitado */
+  cursor: not-allowed; /* Cambiar el cursor para indicar que no se puede hacer clic */
+}

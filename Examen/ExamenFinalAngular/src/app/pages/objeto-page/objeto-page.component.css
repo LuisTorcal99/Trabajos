@@ -1,0 +1,98 @@
+.container {
+  max-width: 900px;
+  margin: auto;
+  padding: 20px;
+  display: flex;
+  justify-content: space-between;
+}
+
+.row {
+  display: flex;
+  width: 100%;
+}
+
+.col-left, .col-right {
+  padding: 20px;
+  border-radius: 10px;
+}
+
+.col-left {
+  width: 30%;
+  margin-right: 20px;
+  background-color: #f4f4f4;
+}
+
+.col-right {
+  width: 65%;
+  background-color: white;
+}
+
+.back-button {
+  background-color: #ddd;
+  border: none;
+  padding: 8px 12px;
+  cursor: pointer;
+  margin-bottom: 10px;
+  font-size: 16px;
+}
+
+.title {
+  text-align: center;
+  font-size: 24px;
+  margin-bottom: 10px;
+}
+
+.subtitle {
+  text-align: center;
+  font-size: 18px;
+  margin-bottom: 20px;
+}
+
+.form-group {
+  margin-bottom: 15px;
+}
+
+label {
+  display: block;
+  font-weight: bold;
+  margin-bottom: 5px;
+}
+
+input,
+select {
+  width: 100%;
+  padding: 8px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+}
+
+.update-button {
+  background-color: #4CAF50;
+  color: white;
+  border: none;
+  padding: 10px 15px;
+  cursor: pointer;
+  width: 100%;
+  margin-bottom: 10px;
+}
+
+.delete-button {
+  background-color: #f44336;
+  color: white;
+  border: none;
+  padding: 10px 15px;
+  cursor: pointer;
+  width: 100%;
+}
+
+ul {
+  padding-left: 20px;
+}
+
+li {
+  margin-bottom: 5px;
+}
+
+h3 {
+  margin-bottom: 10px;
+}

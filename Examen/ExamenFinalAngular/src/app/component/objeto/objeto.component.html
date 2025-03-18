@@ -1,0 +1,14 @@
+<div class="grid-container">
+  <a [routerLink]="['/objetoPage', objeto.id]" class="listing-link">
+    <section class="listing">
+      <!-- Mostrar ID -->
+      <h1>{{ objeto.id }}</h1>
+
+      <!-- Mostrar Nombre -->
+      <h2 class="listing-heading">{{ objeto.nombre }}</h2>
+
+      <h2 class="listing-heading">{{ objeto.email }}</h2>
+
+    </section>
+  </a>
+</div>

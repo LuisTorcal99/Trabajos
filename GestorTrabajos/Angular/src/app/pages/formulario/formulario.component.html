@@ -1,0 +1,67 @@
+<app-navbar></app-navbar>
+<section>
+  <h1>PROPUESTA PROYECTO</h1>
+  <p>Según el artículo 3, los tipos de proyectos 
+    pueden ser: documental, de innovación y de 
+    gestión.</p>
+
+  <p>Según el artículo 5, punto 3.a, "el alumno presentará una propuesta que contenga la descripción del proyecto que pretende realizar".</p>
+
+  <p>Junto con el título, es necesario entregar una 
+    breve descripción del proyecto y las tecnologías 
+    con las que lo vais a realizar.</p>
+
+  <p>Enlace al documento que regula el proyecto <a href="https://drive.google.com/file/d/1-Po_Cgoq41SYX5MniIMSM3vo0gMZ6qeu/view" target="_blank">HERE</a></p>
+</section>
+
+<h2>Registro de Proyecto</h2>
+
+<!-- Mostrar mensaje si la vista no está habilitada -->
+<div *ngIf="!isViewEnabled" style="color: red;">
+  <p>La vista no está habilitada en este momento. Solo está disponible entre {{ fechaInicio | date }} y {{ fechaFin | date }}.</p>
+</div>
+
+<!-- Formulario solo visible si está habilitado -->
+<div *ngIf="isViewEnabled">
+  <form [formGroup]="applyForm" (ngSubmit)="submitApplication()"> 
+    <label for="nombre">Nombre y apellidos del Alumno:</label> 
+    <input type="text" id="nombre" name="nombre" placeholder="Apellidos, Nombre" formControlName="NombreAlumno" required>
+    <div *ngIf="hasError('NombreAlumno')" style="color: red;">El nombre es obligatorio y debe tener al menos 5 caracteres.</div>
+    <br><br>
+
+    <label for="titulo">Nombre del proyecto:</label>
+    <input type="text" id="titulo" name="titulo" placeholder="Tu respuesta" formControlName="NombreProyecto" required>
+    <div *ngIf="hasError('NombreProyecto')" style="color: red;">El título del proyecto es obligatorio y debe tener al menos 5 caracteres.</div>
+    <br><br>
+
+    <label>Opciones:</label> 
+    <div class="radio-group">
+      <input type="radio" id="Documental" formControlName="tipoProyecto" value="Documental">
+      <label for="Documental">Documental</label>
+      
+      <input type="radio" id="Innovacion" formControlName="tipoProyecto" value="Innovacion">
+      <label for="Innovacion">Innovación</label>
+      
+      <input type="radio" id="Gestion" formControlName="tipoProyecto" value="Gestion">
+      <label for="Gestion">Gestión</label>
+    </div>
+    <div *ngIf="hasError('tipoProyecto')" style="color: red;">Debes seleccionar un tipo de proyecto.</div>
+    <br>
+
+    <label for="descripcion">Descripción del proyecto:</label><br>
+    <textarea id="descripcion" name="descripcion" placeholder="Tu respuesta" formControlName="descripcion" required></textarea>
+    <div *ngIf="hasError('descripcion')" style="color: red;">La descripción es obligatoria y debe tener al menos 25 caracteres.</div>
+    <br><br>
+
+    <button type="submit" [disabled]="applyForm.invalid">Enviar</button>
+  </form>
+</div>
+
+<!-- Mensajes de éxito o error -->
+<div *ngIf="successMessage" style="color: green;">
+  <p>{{ successMessage }}</p>
+</div>
+
+<div *ngIf="errorMessage" style="color: red;">
+  <p>{{ errorMessage }}</p>
+</div>

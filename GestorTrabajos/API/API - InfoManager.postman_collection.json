@@ -1,0 +1,403 @@
+{
+	"info": {
+		"_postman_id": "1bece4e6-ec3d-4ab5-bb59-7e90f6a3647d",
+		"name": "API - InfoManager",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "40208603"
+	},
+	"item": [
+		{
+			"name": "Admin",
+			"item": [
+				{
+					"name": "LoginAdmin",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"userName\": \"admin1\",\r\n  \"password\": \"@Alumn0123\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{apinator}}/users/login",
+							"host": [
+								"{{apinator}}"
+							],
+							"path": [
+								"users",
+								"login"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "RegisterAdmin",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"name\": \"admin\",\r\n  \"apellidos\": \"istrador\",\r\n  \"userName\": \"admin1\",\r\n  \"dni\": \"12345675A\",\r\n  \"email\": \"admin@gmail.com\",\r\n  \"password\": \"@Alumn0123\",\r\n  \"rol\": \"admin\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{apinator}}/users/register",
+							"host": [
+								"{{apinator}}"
+							],
+							"path": [
+								"users",
+								"register"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "POSTPropuesta",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"username\": \"alumno1\",\r\n  \"titulo\": \"propuestaProponida\",\r\n  \"descripcion\": \"Propuesta to guapa\",\r\n  \"tipo\": \"Innovacion\",\r\n  \"estado\": \"tu diras\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{apinator}}/Propuesta/proponer",
+							"host": [
+								"{{apinator}}"
+							],
+							"path": [
+								"Propuesta",
+								"proponer"
+							]
+						}
+					},
+					"response": []
+				}
+			],
+			"auth": {
+				"type": "bearer",
+				"bearer": [
+					{
+						"key": "token",
+						"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1bmlxdWVfbmFtZSI6ImFkbWluMSIsInJvbGUiOiJhZG1pbiIsIm5iZiI6MTczOTcwNzg5NSwiZXhwIjoxNzM5NzA4MzE1LCJpYXQiOjE3Mzk3MDc4OTV9.9EkipT-mrGMZjuFJHXVEAgyKe7MwSci2RiASjF5XOB8",
+						"type": "string"
+					}
+				]
+			},
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"type": "text/javascript",
+						"packages": {},
+						"exec": [
+							""
+						]
+					}
+				},
+				{
+					"listen": "test",
+					"script": {
+						"type": "text/javascript",
+						"packages": {},
+						"exec": [
+							""
+						]
+					}
+				}
+			]
+		},
+		{
+			"name": "Profesor",
+			"item": [
+				{
+					"name": "LoginProfesor",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"userName\": \"profesor1\",\r\n  \"password\": \"@Alumn0123\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{apinator}}/users/login",
+							"host": [
+								"{{apinator}}"
+							],
+							"path": [
+								"users",
+								"login"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "RegisterProfesor",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"name\": \"profe\",\r\n  \"apellidos\": \"sor\",\r\n  \"userName\": \"profesor1\",\r\n  \"dni\": \"12345671A\",\r\n  \"email\": \"profe@gmail.com\",\r\n  \"password\": \"@Alumn0123\",\r\n  \"rol\": \"profesor\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{apinator}}/users/register",
+							"host": [
+								"{{apinator}}"
+							],
+							"path": [
+								"users",
+								"register"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "POSTPropuesta",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"username\": \"alumno1\",\r\n  \"titulo\": \"propuestaProponida\",\r\n  \"descripcion\": \"Propuesta to guapa\",\r\n  \"tipo\": \"Innovacion\",\r\n  \"estado\": \"tu diras\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{apinator}}/Propuesta/proponer",
+							"host": [
+								"{{apinator}}"
+							],
+							"path": [
+								"Propuesta",
+								"proponer"
+							]
+						}
+					},
+					"response": []
+				}
+			],
+			"auth": {
+				"type": "bearer",
+				"bearer": [
+					{
+						"key": "token",
+						"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1bmlxdWVfbmFtZSI6InByb2Zlc29yMSIsInJvbGUiOiJwcm9mZXNvciIsIm5iZiI6MTczOTcwNzkwOCwiZXhwIjoxNzM5NzA4MzI4LCJpYXQiOjE3Mzk3MDc5MDh9.XM3mRK5zUgvYfEngOQpBc4fW7mwINnesUfV297Y4vFg",
+						"type": "string"
+					}
+				]
+			},
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"type": "text/javascript",
+						"packages": {},
+						"exec": [
+							""
+						]
+					}
+				},
+				{
+					"listen": "test",
+					"script": {
+						"type": "text/javascript",
+						"packages": {},
+						"exec": [
+							""
+						]
+					}
+				}
+			]
+		},
+		{
+			"name": "Alumno",
+			"item": [
+				{
+					"name": "LoginAlumno",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"userName\": \"alumno1\",\r\n  \"password\": \"@Alumn0123\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{apinator}}/users/login",
+							"host": [
+								"{{apinator}}"
+							],
+							"path": [
+								"users",
+								"login"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "RegisterAlumno",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"name\": \"alumno\",\r\n  \"apellidos\": \"1\",\r\n  \"userName\": \"alumno1\",\r\n  \"dni\": \"12345678A\",\r\n  \"email\": \"alumno1@gmail.com\",\r\n  \"password\": \"@Alumn0123\",\r\n  \"rol\": \"alumno\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{apinator}}/users/register",
+							"host": [
+								"{{apinator}}"
+							],
+							"path": [
+								"users",
+								"register"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "POSTPropuesta",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"username\": \"alumno1\",\r\n  \"titulo\": \"propuestaProponida\",\r\n  \"descripcion\": \"Propuesta to guapa\",\r\n  \"tipo\": \"Innovacion\",\r\n  \"estado\": \"tu diras\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{apinator}}/Propuesta/proponer",
+							"host": [
+								"{{apinator}}"
+							],
+							"path": [
+								"Propuesta",
+								"proponer"
+							]
+						}
+					},
+					"response": []
+				}
+			],
+			"auth": {
+				"type": "bearer",
+				"bearer": [
+					{
+						"key": "token",
+						"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1bmlxdWVfbmFtZSI6ImFsdW1ubzEiLCJyb2xlIjoiYWx1bW5vIiwibmJmIjoxNzM5NzA3OTIxLCJleHAiOjE3Mzk3MDgzNDEsImlhdCI6MTczOTcwNzkyMX0.aTb8UnbVEwfjKojAfUJ09QFRUtG-Jan3DsEjwTsyL80",
+						"type": "string"
+					}
+				]
+			},
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"type": "text/javascript",
+						"packages": {},
+						"exec": [
+							""
+						]
+					}
+				},
+				{
+					"listen": "test",
+					"script": {
+						"type": "text/javascript",
+						"packages": {},
+						"exec": [
+							""
+						]
+					}
+				}
+			]
+		}
+	],
+	"auth": {
+		"type": "bearer",
+		"bearer": [
+			{
+				"key": "token",
+				"value": "",
+				"type": "string"
+			}
+		]
+	},
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"type": "text/javascript",
+				"packages": {},
+				"exec": [
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"type": "text/javascript",
+				"packages": {},
+				"exec": [
+					""
+				]
+			}
+		}
+	],
+	"variable": [
+		{
+			"key": "apinator",
+			"value": "localhost:5072/api",
+			"type": "string"
+		}
+	]
+}

@@ -1,0 +1,75 @@
+﻿<Window x:Class="WPF_CHEAT_os.View.VerPropuestaView"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:viewmodel="clr-namespace:WPF_CHEAT_os.ViewModel"
+        d:DataContext="{d:DesignInstance Type=viewmodel:VerPropuestaViewModel}"
+        mc:Ignorable="d"
+        Title="Ver Propuesta"
+        Width="600"
+        Height="500"
+        Background="White"
+        >
+    <Grid Margin="20">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="Auto"/>
+        </Grid.RowDefinitions>
+
+        <TextBlock Text="Detalles de la Propuesta" 
+                   FontSize="22" 
+                   FontWeight="Bold" 
+                   HorizontalAlignment="Center"
+                   Margin="0,0,0,20"/>
+
+        <!-- ScrollViewer para permitir desplazamiento vertical -->
+        <ScrollViewer Grid.Row="1" VerticalScrollBarVisibility="Auto">
+            <StackPanel Margin="10">
+                <TextBlock Text="ID:" FontWeight="Bold"/>
+                <TextBlock Text="{Binding Propuesta.Id}" Margin="0,5"/>
+
+                <TextBlock Text="Título:" FontWeight="Bold"/>
+                <TextBlock Text="{Binding Propuesta.Titulo}" Margin="0,5"/>
+
+                <TextBlock Text="Email:" FontWeight="Bold"/>
+                <TextBlock Text="{Binding Propuesta.Email}" Margin="0,5"/>
+
+                <TextBlock Text="Descripción:" FontWeight="Bold"/>
+                <ScrollViewer Height="100" VerticalScrollBarVisibility="Auto">
+                    <TextBlock Text="{Binding Propuesta.Descripcion}" TextWrapping="Wrap" Margin="0,5"/>
+                </ScrollViewer>
+
+                <TextBlock Text="Estado Actual:" FontWeight="Bold"/>
+                <TextBlock Text="{Binding Propuesta.Estado}" Margin="0,5"/>
+
+                <TextBlock Text="Profesor 1:" FontWeight="Bold"/>
+                <ComboBox ItemsSource="{Binding Profesores}"
+                          SelectedItem="{Binding Profesor1}"
+                          DisplayMemberPath="Nombre"
+                          Width="200" Margin="0,5"/>
+
+                <TextBlock Text="Profesor 2:" FontWeight="Bold"/>
+                <ComboBox ItemsSource="{Binding Profesores}"
+                          SelectedItem="{Binding Profesor2}"
+                          DisplayMemberPath="Nombre"
+                          Width="200" Margin="0,5"/>
+
+                <TextBlock Text="Profesor 3:" FontWeight="Bold"/>
+                <ComboBox ItemsSource="{Binding Profesores}"
+                          SelectedItem="{Binding Profesor3}"
+                          DisplayMemberPath="Nombre"
+                          Width="200" Margin="0,5"/>
+            </StackPanel>
+        </ScrollViewer>
+
+        <StackPanel Grid.Row="2" Orientation="Horizontal" HorizontalAlignment="Center" Margin="0,20">
+            <Button Content="Aceptar" Command="{Binding AceptarCommand}" Width="120" Margin="5" Background="Green" Foreground="White"/>
+            <Button Content="Rechazar" Command="{Binding RechazarCommand}" Width="120" Margin="5" Background="Red" Foreground="White"/>
+            <Button Content="Solicitar más información" Command="{Binding RequerirAmpliacionCommand}" Width="150" Margin="5"/>
+            <Button Content="Save" Command="{Binding SaveCommand}" Width="100" Margin="5" Background="LightPink"/>
+        </StackPanel>
+
+    </Grid>
+</Window>

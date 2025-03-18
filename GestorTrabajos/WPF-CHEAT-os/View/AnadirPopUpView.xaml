@@ -1,0 +1,59 @@
+﻿<Window x:Class="WPF_CHEAT_os.View.AnadirPopUpView"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:WPF_CHEAT_os.View" 
+        xmlns:viewmodel="clr-namespace:WPF_CHEAT_os.ViewModel" 
+        d:DataContext="{d:DesignInstance Type=viewmodel:AnadirPopUpViewModel}"
+        mc:Ignorable="d"
+        Title="Añadir Usuario" Height="500" Width="800">
+    <Grid Margin="20">
+        <!-- Contenedor de formulario -->
+        <StackPanel VerticalAlignment="Center" HorizontalAlignment="Center" Margin="5">
+            <!-- Campo de nombre -->
+            <StackPanel>
+                <Label Content="Nombre" />
+                <TextBox x:Name="NameTextBox" Width="300" Height="30" 
+                         Text="{Binding Name}" Margin="0,5"/>
+            </StackPanel>
+
+            <!-- Campo de apellidos -->
+            <StackPanel>
+                <Label Content="Apellidos" />
+                <TextBox x:Name="ApellidosTextBox" Width="300" Height="30" 
+                         Text="{Binding Apellidos}" Margin="0,5"/>
+            </StackPanel>
+
+            <!-- Campo de email -->
+            <StackPanel>
+                <Label Content="Email" />
+                <TextBox x:Name="EmailTextBox" Width="300" Height="30" 
+                         Text="{Binding Email}" Margin="0,5"/>
+            </StackPanel>
+
+            <!-- Campo de contraseña -->
+            <StackPanel>
+                <Label Content="Contraseña" />
+                <TextBox x:Name="PasswordBox" Width="300" Height="30" 
+                             Text="{Binding Password}" Margin="0,5"/>
+            </StackPanel>
+
+            <!-- ComboBox de rol -->
+            <StackPanel>
+                <Label Content="Rol" />
+                <ComboBox x:Name="RoleComboBox" Width="300" Height="30" 
+                      SelectedItem="{Binding Rol}" Margin="0,5">
+                    <ComboBox.Items>
+                        <ComboBoxItem Content="profesor"/>
+                        <ComboBoxItem Content="alumno" />
+                    </ComboBox.Items>
+                </ComboBox>
+            </StackPanel>
+
+            <!-- Botón para añadir usuario -->
+            <Button Content="Añadir Usuario" Width="300" Height="40" 
+                    Command="{Binding AddUserCommand}" Margin="0,5"/>
+        </StackPanel>
+    </Grid>
+</Window>

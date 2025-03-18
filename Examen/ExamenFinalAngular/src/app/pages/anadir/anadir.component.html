@@ -1,0 +1,20 @@
+<div class="container">
+  <button class="back-button" (click)="goBack()">⬅ Volver</button>
+  <h1 class="title">Crear Nuevo Objeto</h1>
+
+  <form #form="ngForm" (ngSubmit)="crearObjeto()">
+    <!-- Campo de nombre -->
+    <div class="form-group">
+      <label for="nombre">Nombre:</label>
+      <input id="nombre" type="text" placeholder="Nombre" [(ngModel)]="nuevoObjeto.nombre" name="nombre" required />
+    </div>
+
+    <div class="form-group">
+      <label for="email">Email:</label>
+      <input id="email" type="text" placeholder="email" [(ngModel)]="nuevoObjeto.email" name="email" required />
+    </div>
+
+    <!-- Botón para crear el objeto -->
+    <button class="update-button" type="submit" [disabled]="!form.valid">Crear</button>
+  </form>
+</div>

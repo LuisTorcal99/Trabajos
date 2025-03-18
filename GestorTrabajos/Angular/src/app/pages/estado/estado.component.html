@@ -1,0 +1,39 @@
+<app-navbar></app-navbar>
+<h2>Mis Propuestas</h2>
+
+<div *ngIf="propuestas.length > 0; else noPropuestas" class="propuesta-grid">
+  <div class="propuesta-header">
+    <span>Título</span>
+    <span>Descripción</span>
+    <span>Estado</span>
+  </div>
+  
+  <div *ngFor="let propuesta of propuestas" class="propuesta-row">
+    <span>{{ propuesta.titulo }}</span>
+    
+    <!-- Descripción editable solo si el estado es "Requiere Ampliación" -->
+    <span>
+      <input 
+        *ngIf="propuesta.estado === 'Requiere Ampliacion'" 
+        [(ngModel)]="propuesta.descripcion" 
+        [disabled]="propuesta.estado !== 'Requiere Ampliacion'" 
+        placeholder="Descripción"
+      />
+      <span *ngIf="propuesta.estado !== 'Requiere Ampliacion'">{{ propuesta.descripcion }}</span>
+    </span>
+    
+    <span [ngClass]="getEstadoClass(propuesta.estado)">{{ propuesta.estado }}</span>
+
+    <!-- Botón "Guardar cambios" visible solo si el estado es "Requiere Ampliación" -->
+    <button 
+      *ngIf="propuesta.estado === 'Requiere Ampliacion'" 
+      (click)="guardarCambios(propuesta)"
+      class="save-button">
+      Guardar cambios
+    </button>
+  </div>
+</div>
+
+<ng-template #noPropuestas>
+  <p>No tienes propuestas registradas.</p>
+</ng-template>

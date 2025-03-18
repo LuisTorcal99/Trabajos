@@ -1,0 +1,63 @@
+﻿<UserControl x:Class="ExamenFinal.View.GridView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:ExamenFinal.View" 
+             xmlns:viewmodel="clr-namespace:ExamenFinal.ViewModel" 
+             xmlns:ui="http://schemas.lepo.co/wpfui/2022/xaml" 
+             xmlns:controls="clr-namespace:ExamenFinal.Controls"
+             d:DataContext="{d:DesignInstance Type=viewmodel:GridViewModel}"
+             mc:Ignorable="d" 
+             d:DesignHeight="450" d:DesignWidth="800"
+             Background="White">
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="6*"/>
+            <RowDefinition Height="4*"/>
+        </Grid.RowDefinitions>
+
+        <ui:DataGrid 
+            ItemsSource="{Binding PaginatedItems}" 
+            Grid.Column="1"
+            AutoGenerateColumns="False" 
+            IsReadOnly="True"
+            CanUserResizeColumns="True"
+            CanUserResizeRows="False"
+            MinRowHeight="25"
+            Margin="25"
+            ColumnWidth="*" 
+            ScrollViewer.VerticalScrollBarVisibility="Auto"
+            ScrollViewer.HorizontalScrollBarVisibility="Auto"
+            Background="Ivory"
+            Foreground="Black"
+            HorizontalAlignment="Stretch"
+            VerticalAlignment="Stretch">
+
+            <ui:DataGrid.Columns>
+                <!-- Columna para 'Id' -->
+                <DataGridTextColumn Header="ID" Binding="{Binding Id}" Width="*" />
+
+                <!-- Columna para 'Name' -->
+                <DataGridTextColumn Header="Name" Binding="{Binding Nombre}" Width="*" />
+
+                <!-- Columna para 'Precio' -->
+                <DataGridTextColumn Header="Precio" Binding="{Binding Precio}" Width="*" />
+
+            </ui:DataGrid.Columns>
+        </ui:DataGrid>
+
+        <StackPanel Grid.Column="1" Grid.Row="1" Orientation="Horizontal" HorizontalAlignment="Right" Margin="10">
+            <Button Content="Add" Width="120" Height="40" Margin="5" Command="{Binding AddCommand}" Background="Beige" Foreground="Black" FontFamily="Arial Black"/>
+            <Button Content="Importar" Width="120" Height="40" Margin="5" Command="{Binding ImportarCommand}" Background="DeepSkyBlue" Foreground="Black" FontFamily="Arial Black"/>
+            <Button Content="Exportar" Width="120" Height="40" Margin="5" Command="{Binding ExportarCommand}" Background="MediumPurple" Foreground="Black" FontFamily="Arial Black"/>
+        </StackPanel>
+
+        <StackPanel Orientation="Horizontal" Grid.Row="1" HorizontalAlignment="Left" VerticalAlignment="Center" Grid.Column="1" Margin="10">
+            <Button Content="Previous" Command="{Binding MoveToPreviousPageCommand}" Width="120" Height="40" Margin="5" Background="Red" Foreground="Black" FontFamily="Arial Black"/>
+            <TextBlock Text="{Binding CurrentPage}" VerticalAlignment="Center" Margin="10" FontSize="16" FontWeight="Bold" Foreground="Black"/>
+            <Button Content="Next" Command="{Binding MoveToNextPageCommand}" Width="120" Height="40" Margin="5" Background="Green" Foreground="Black" FontFamily="Arial Black"/>
+        </StackPanel>
+
+    </Grid>
+</UserControl>

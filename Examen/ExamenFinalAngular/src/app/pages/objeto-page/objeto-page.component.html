@@ -1,0 +1,35 @@
+<div class="container">
+  <div class="row">
+    <!-- Columna izquierda para los objetos relacionados -->
+    <div class="col-left">
+      <h3>Objetos Relacionados</h3>
+      <div *ngIf="objetosRelacionados.length > 0">
+        <ul>
+          <li *ngFor="let related of objetosRelacionados">
+            {{ related.nombre }} (ID: {{ related.id }})
+          </li>
+        </ul>
+      </div>
+
+    <!-- Columna derecha para los detalles del objeto -->
+    <div class="col-right">
+      <button class="back-button" (click)="goBack()">⬅ Volver</button>
+      <h1 class="title">Detalle del Objeto</h1>
+      <p class="subtitle">ID: {{ objeto.id }}</p>
+
+      <div class="form-group">
+        <label for="name">Nombre:</label>
+        <input id="name" type="text" [(ngModel)]="objeto.nombre" />
+      </div>
+
+      <div class="form-group">
+        <label for="email">Email:</label>
+        <input id="email" type="text" [(ngModel)]="objeto.email" />
+      </div>
+
+
+      <button class="update-button" (click)="actualizarObjeto()">Actualizar</button>
+      <button class="delete-button" (click)="eliminarObjeto()">Eliminar</button>
+    </div>
+  </div>
+</div>
